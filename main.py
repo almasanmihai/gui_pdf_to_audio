@@ -1,6 +1,6 @@
-from tkinter import messagebox
 from tkinter import *
 from tkinter import filedialog as fd
+from tkinter import messagebox
 import PyPDF2
 import pdfplumber
 import pyttsx3
@@ -38,6 +38,7 @@ def speak():
         engine.setProperty('voice', voices[voice_select].id)
         engine.say(text_to_speak)
         engine.runAndWait()
+        engine.stop()
 
 
 def save_mp3():
@@ -51,8 +52,9 @@ def save_mp3():
             filename_to_save = fd.asksaveasfilename() + '.mp3'
             engine.save_to_file(text_to_speak, filename_to_save)
             engine.runAndWait()
+            engine.stop()
         except Exception as error:
-            messagebox.showerror("Error", f'{error}, the file could not be save.')
+            messagebox.showerror("Error", f'{error}, the file could not be saved.')
         else:
             messagebox.showinfo('Success', 'Job successfully donne.')
 
